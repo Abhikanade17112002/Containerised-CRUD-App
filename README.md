@@ -1,12 +1,3 @@
-Absolutely. Based on the actual project setup and terminal work in your file, here is a **detailed, GitHub-ready `README.md`** for the project.
-
-I’ve kept it aligned with what you actually built: **Spring Boot + PostgreSQL + Docker + custom bridge network + multi-stage Dockerfile**, and I’ve included the troubleshooting lessons from the setup as well. Your PostgreSQL container was created with database `crud`, user `postgres`, password `postgres`, and attached to `sb-crud-app-nw`.
-
-You can replace your current `README.md` with this:
-
----
-
-````markdown
 # 🐳 Containerised Spring Boot CRUD Application
 
 A simple **Spring Boot CRUD REST API** connected to **PostgreSQL**, with both the application and database running inside Docker containers.
