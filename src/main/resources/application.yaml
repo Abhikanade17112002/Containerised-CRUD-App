@@ -3,9 +3,9 @@ spring:
     name: Containeraized-CRUD-APP
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/studentdb
+    url: jdbc:postgresql://localhost:5432/crud
     username: postgres
-    password: your_password
+    password: postgres
     driver-class-name: org.postgresql.Driver
 
   jpa:
