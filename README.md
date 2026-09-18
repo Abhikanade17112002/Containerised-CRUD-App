@@ -1,5 +1,96 @@
 # 🐳 Containerised Spring Boot CRUD Application
 
+# 📸 Screenshots
+
+The following screenshots demonstrate the Student CRUD operations, Docker containers, networking, storage, application logs, and EC2 deployment.
+
+## 👨‍🎓 Student CRUD Operations
+
+### Add a Student
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Add%20A%20Student.png)
+
+![Add a Student](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Add%20A%20Student.png)
+
+### Get All Students
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Get%20All%20Students.png)
+
+![Get All Students](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Get%20All%20Students.png)
+
+### Get Student By ID
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Get%20Student%20By%20Id.png)
+
+![Get Student By ID](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Get%20Student%20By%20Id.png)
+
+### Delete Student By ID
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Delete%20Student%20By%20Id.png)
+
+![Delete Student By ID](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Delete%20Student%20By%20Id.png)
+
+---
+
+## 🐳 Docker Containers & Runtime
+
+### Docker Containers
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Docker%20Containers.png)
+
+![Docker Containers](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Docker%20Containers.png)
+
+### Application Container Logs
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Application%20Container%20Logs.png)
+
+![Application Container Logs](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Application%20Container%20Logs.png)
+
+### PostgreSQL Container Logs
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Postgress%20Contianer%20logs.png)
+
+![PostgreSQL Container Logs](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Postgress%20Contianer%20logs.png)
+
+---
+
+## 🖼️ Docker Images, Networks & Storage
+
+### Docker Images
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Docker%20Images.png)
+
+![Docker Images](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Docker%20Images.png)
+
+### Docker Networks
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Docker%20Networks.png)
+
+![Docker Networks](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Docker%20Networks.png)
+
+### Docker Volumes
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Docker%20Volumes.png)
+
+![Docker Volumes](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Docker%20Volumes.png)
+
+### Docker Volumes & Storage
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/Docker%20Volumes%20And%20Storage.png)
+
+![Docker Volumes and Storage](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/Docker%20Volumes%20And%20Storage.png)
+
+---
+
+## ☁️ EC2 Deployment
+
+### EC2 Application Directory
+
+[View Screenshot](https://github.com/Abhikanade17112002/Containerised-CRUD-App/blob/main/src/main/resources/static/EC2%20App%20DIR.png)
+
+![EC2 Application Directory](https://raw.githubusercontent.com/Abhikanade17112002/Containerised-CRUD-App/main/src/main/resources/static/EC2%20App%20DIR.png)
+
+
 A simple **Spring Boot CRUD REST API** connected to **PostgreSQL**, with both the application and database running inside Docker containers.
 
 This project is primarily created to understand:
