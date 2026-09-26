@@ -1,38 +1,29 @@
-# ==========================================
-# Stage 1: Build Spring Boot Application
-# ==========================================
+## First Phase BUILD PHASE
 
+## PULL BASE IMAGE OF OPEN JDK 21 FROM REGISTERY
 FROM eclipse-temurin:21-jdk AS build
-
+## CREATE A WORKING DIRECTORY FOR THE IMAGE / CONTAINER
 WORKDIR /app
-
-# Maven Wrapper
-COPY mvnw .
+## COPY ALL THE BUILD ARTIFACTS FROM HOST TO WORK DIRECTORY
+COPY pom.xml pom.xml
+COPY mvnw mvnw
 COPY .mvn .mvn
-
-# Maven project configuration
-COPY pom.xml .
-
-# Download dependencies
+## DOWNLOAD THE MAVEN DEPENDECIES
 RUN ./mvnw dependency:go-offline
-
-# Copy source code
+## COPY SOURCE CODE INTO WOEK DIR
 COPY src src
-
-# Build JAR
+## BUILD THE SOURCE CODE
 RUN ./mvnw clean package -DskipTests
 
-
-# ==========================================
-# Stage 2: Run Spring Boot Application
-# ==========================================
-
-FROM eclipse-temurin:21-jre
-
+## SECOND PHASE RUN PHASE
+FROM eclipse-temurin:21-jre AS run
+## CREATE WORK DIR / CONTINUE FROM SAME WORK DIR
 WORKDIR /app
-
-COPY --from=build /app/target/*.jar app.jar
-
+## COPY THE BUILD ARTIFACT / JAR FILE FROM The BUILD PHASE
+COPY --from=build ./app/target/*.jar app.jar
+## MENTION THAT THE APP EXPOSE THE PORT
 EXPOSE 8080
+## DEFAULT RUN COMMAND FOR CONTAINER
+CMD ["java" , "-jar" , "app.jar"]
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
