@@ -1,26 +1,26 @@
-## LIST OF THE SERVICES TO RUN OR THE CONTAINERS TO SPIN
+## LIST OF THE SERVICES OR CONTAINERS TO BE STARTED
 
 services:
+  ## POSTGRES SERVICE FOR POSTGRES CONTAINER
   postgres:
-    ## USE THE POSTGRES IMAGE FROM REGISTERY
+    ## IMAGE TO BE USED FOR THIS CONTAINER
     image: postgres:18
-    ## EXPLICIT CONTAINER NAME
-    container_name: "postgres-container"
-    ## PORTS TO BE MAPPED
-    ports:
-      - "5432:5432"
-    ## ENVIRONMENT VARIABLES
+    ## EXPLICIT NAME FOR THE CONTAINER USED FOR TRACKING IN DOCKER
+    container_name: "sb-crud-app-postgres-container"
+    ## ENVIRONMENT VARIABLES FOR DB
     environment:
-       POSTGRES_USER: "admin"
-       POSTGRES_PASSWORD: "admin"
-       POSTGRES_DB: "testdb"
-    ## VOLUMES TO BE ATTACHED
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "testdb"
+    ## VOLUME TO BE MOUNTED FOR DATA PERSISTENCE
     volumes:
       - crud-app-volume:/var/lib/postgresql
-    ## Networks TO Be Attached
+    ## NETWORKS IN WHICH CONTAINER TO BE INCLUDED
     networks:
       - crud-app-nw
-    ## HEALTH CHECKS FOR DB
+    ## HOST AND CONTAINER PORT MAPPINGS
+    ports:
+      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d testdb"]
       interval: 5s
@@ -28,54 +28,66 @@ services:
       retries: 5
       start_period: 10s
 
-  sb-crud-app-1:
+
+  ## APPLICATION SERVICE FOR CONTAINER 1
+  crud-app-1:
+    ## PROVIDE THE CONTEXT FOR THE DOCKER FILE
     build:
       context: .
       dockerfile: Dockerfile
+    ## EXPLICIT CONTAINER NAME FOR TRACKING IN DOCKER
     container_name: "sb-crud-app-container-1"
-    ## ENVIRONMENT VARIABLES FOR APP CONTAINER 1
+    ## CONTAINER TYO BE INCLUDED IN THE NETWORK
+    networks:
+      - crud-app-nw
+    ## ENVIRONMENT VARIABLES FOR THE CONTAINER
     environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB_URL: ${POSTGRES_DB_URL}
       APP_CONTAINER_PORT: ${APP_CONTAINER_PORT_1}
-      POSTGRES_DB_URL: "jdbc:postgresql://postgres:5432/testdb"
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "admin"
+    ## PORTS MAPPING FOR THE HOST AND CONTAINER
     ports:
       - "${HOST_PORT_1}:${APP_CONTAINER_PORT_1}"
-    ## NETWORKS FOR CONTAINER 1
-    networks:
-      - crud-app-nw
-
+    ## THIS APP CONTAINER DEPENDS ON THE POSTGRES SO POSTGRES SHOULD BE UP AND HEALTHY AND ALSO SHOULD BE ACCEPTING THE CONNECTIONS
     depends_on:
       postgres:
         condition: service_healthy
 
-  sb-crud-app-2:
+
+  ## APPLICATION SERVICE FOR CONTAINER 2
+  crud-app-2:
+    ## PROVIDE THE CONTEXT FOR THE DOCKER FILE
     build:
       context: .
       dockerfile: Dockerfile
+    ## EXPLICIT CONTAINER NAME FOR TRACKING IN DOCKER
     container_name: "sb-crud-app-container-2"
-    ## ENVIRONMENT VARIABLES FOR APP CONTAINER 2
-    environment:
-      APP_CONTAINER_PORT: ${APP_CONTAINER_PORT_2}
-      POSTGRES_DB_URL: "jdbc:postgresql://postgres:5432/testdb"
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "admin"
-    ports:
-      - "${HOST_PORT_2}:${APP_CONTAINER_PORT_2}"
-    ## NETWORKS FOR CONTAINER 1
+    ## CONTAINER TYO BE INCLUDED IN THE NETWORK
     networks:
       - crud-app-nw
-
+    ## ENVIRONMENT VARIABLES FOR THE CONTAINER
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB_URL: ${POSTGRES_DB_URL}
+      APP_CONTAINER_PORT: ${APP_CONTAINER_PORT_2}
+    ## PORTS MAPPING FOR THE HOST AND CONTAINER
+    ports:
+      - "${HOST_PORT_2}:${APP_CONTAINER_PORT_2}"
+    ## THIS APP CONTAINER DEPENDS ON THE POSTGRES SO POSTGRES SHOULD BE UP AND HEALTHY AND ALSO SHOULD BE ACCEPTING THE CONNECTIONS
     depends_on:
       postgres:
         condition: service_healthy
+
 
 
 networks:
   crud-app-nw:
-    name: "sb-crud-app-network"
+      name: "sb-crud-app-network"
 
 volumes:
   crud-app-volume:
-    name: "sb-crud-app-volume"
+      name: "sb-crud-app-volume"
+
 
