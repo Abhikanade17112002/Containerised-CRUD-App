@@ -1,0 +1,81 @@
+## LIST OF THE SERVICES TO RUN OR THE CONTAINERS TO SPIN
+
+services:
+  postgres:
+    ## USE THE POSTGRES IMAGE FROM REGISTERY
+    image: postgres:18
+    ## EXPLICIT CONTAINER NAME
+    container_name: "postgres-container"
+    ## PORTS TO BE MAPPED
+    ports:
+      - "5432:5432"
+    ## ENVIRONMENT VARIABLES
+    environment:
+       POSTGRES_USER: "admin"
+       POSTGRES_PASSWORD: "admin"
+       POSTGRES_DB: "testdb"
+    ## VOLUMES TO BE ATTACHED
+    volumes:
+      - crud-app-volume:/var/lib/postgresql
+    ## Networks TO Be Attached
+    networks:
+      - crud-app-nw
+    ## HEALTH CHECKS FOR DB
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d testdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  sb-crud-app-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "sb-crud-app-container-1"
+    ## ENVIRONMENT VARIABLES FOR APP CONTAINER 1
+    environment:
+      APP_CONTAINER_PORT: ${APP_CONTAINER_PORT_1}
+      POSTGRES_DB_URL: "jdbc:postgresql://postgres:5432/testdb"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "${HOST_PORT_1}:${APP_CONTAINER_PORT_1}"
+    ## NETWORKS FOR CONTAINER 1
+    networks:
+      - crud-app-nw
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  sb-crud-app-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "sb-crud-app-container-2"
+    ## ENVIRONMENT VARIABLES FOR APP CONTAINER 2
+    environment:
+      APP_CONTAINER_PORT: ${APP_CONTAINER_PORT_2}
+      POSTGRES_DB_URL: "jdbc:postgresql://postgres:5432/testdb"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "${HOST_PORT_2}:${APP_CONTAINER_PORT_2}"
+    ## NETWORKS FOR CONTAINER 1
+    networks:
+      - crud-app-nw
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
+networks:
+  crud-app-nw:
+    name: "sb-crud-app-network"
+
+volumes:
+  crud-app-volume:
+    name: "sb-crud-app-volume"
+

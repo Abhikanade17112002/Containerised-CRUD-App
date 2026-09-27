@@ -3,9 +3,9 @@ spring:
     name: Containeraized-CRUD-APP
 
   datasource:
-    url: jdbc:postgresql://test-postgress-container:5432/testdb
-    username: admin
-    password: admin
+    url: ${POSTGRES_DB_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -17,4 +17,4 @@ spring:
         format_sql: true
 
 server:
-  port: 8080
+  port: ${APP_CONTAINER_PORT}
